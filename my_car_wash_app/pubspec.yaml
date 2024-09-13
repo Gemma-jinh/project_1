@@ -2,7 +2,7 @@ name: my_car_wash_app
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -31,6 +31,7 @@ dependencies:
   flutter:
     sdk: flutter
 
+  firebase_storage: ^12.2.0 #들여쓰기 주의! flutter와 같은 위치에 있어야 한다.
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -38,7 +39,8 @@ dependencies:
   firebase_core: ^3.4.1
   firebase_auth: ^5.2.1
   cloud_firestore: ^5.4.1
-
+  excel: ^2.0.6
+  file_picker: ^5.2.3
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -55,7 +57,6 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
