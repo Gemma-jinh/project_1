@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:my_car_wash_app/screens/main_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -19,8 +20,11 @@ class _LoginScreenState extends State<LoginScreen> {
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
-      // 로그인 성공 시 홈 화면으로 이동 (추후 구현)
-      print("로그인 성공: ${userCredential.user?.email}");
+      // 로그인 성공 시 홈 화면으로 이동
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => MainScreen()),
+      );
     } catch (e) {
       setState(() {
         _errorMessage = e.toString();
@@ -42,7 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
             TextField(
               controller: _emailController,
               decoration: InputDecoration(
-                labelText: '이메일',
+                labelText: '아이디',
                 border: OutlineInputBorder(),
               ),
             ),
