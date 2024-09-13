@@ -27,7 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
       );
     } catch (e) {
       setState(() {
-        _errorMessage = e.toString();
+        _errorMessage = '로그인에 실패했습니다: ${e.toString()}';
       });
     }
   }
@@ -46,7 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
             TextField(
               controller: _emailController,
               decoration: InputDecoration(
-                labelText: '아이디',
+                labelText: '이메일',
                 border: OutlineInputBorder(),
               ),
             ),
