@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'vehicle_assignment_screen.dart'; // 배정 화면
+import 'vehicle_registration_screen.dart';
+import 'vehicle_search_delegate.dart'; //검색기능
 
 class VehicleListScreen extends StatelessWidget {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -58,6 +60,17 @@ class VehicleListScreen extends StatelessWidget {
             },
           );
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    VehicleRegistrationScreen()), // 차량 등록 화면으로 이동
+          );
+        },
+        child: Icon(Icons.add), // 차량 등록 버튼
       ),
     );
   }

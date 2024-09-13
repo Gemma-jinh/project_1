@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:my_car_wash_app/screens/main_screen.dart';
+import 'vehicle_list_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -20,10 +20,10 @@ class _LoginScreenState extends State<LoginScreen> {
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
-      // 로그인 성공 시 홈 화면으로 이동
+      // 로그인 성공 시 차량 목록 화면으로 이동
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => MainScreen()),
+        MaterialPageRoute(builder: (context) => VehicleListScreen()),
       );
     } catch (e) {
       setState(() {
