@@ -41,9 +41,8 @@ class ExcelUploadService {
         for (var row in sheet.rows) {
           // 예시: Firestore에 차량 데이터 저장
           await FirebaseFirestore.instance.collection('cars').add({
-            'name': row[0]?.value ?? '', // 차량 이름
-            'number': row[1]?.value ?? '', // 차량 번호
-            'assignedStaff': row[2]?.value ?? '', // 담당자
+            'model': row[3]?.value ?? '', // 차량 모델
+            'number': row[4]?.value ?? '', // 차량 번호
           });
         }
       }

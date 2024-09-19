@@ -42,7 +42,7 @@ class VehicleListScreen extends StatelessWidget {
             itemBuilder: (context, index) {
               var vehicle = vehicles[index];
               return ListTile(
-                title: Text(vehicle['name']),
+                title: Text(vehicle['model']),
                 subtitle: Text('번호: ${vehicle['number']}'),
                 trailing: ElevatedButton(
                   onPressed: () {

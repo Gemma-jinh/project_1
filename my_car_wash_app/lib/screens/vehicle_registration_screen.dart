@@ -26,7 +26,7 @@ class _VehicleRegistrationScreenState extends State<VehicleRegistrationScreen> {
 
     try {
       await _vehicles.add({
-        'name': _vehicleNameController.text.trim(),
+        'model': _vehicleNameController.text.trim(),
         'number': _vehicleNumberController.text.trim(),
         'assignedStaff': '', // 처음에는 담당자가 없음
         'createdAt': FieldValue.serverTimestamp(),
