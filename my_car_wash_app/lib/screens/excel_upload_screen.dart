@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'dart:io';
+import 'dart:typed_data'; // 바이트 데이터를 처리하기 위한 패키지
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:my_car_wash_app/services/excel_upload_service.dart'; // 서비스 파일 불러오기
 
@@ -10,24 +11,27 @@ class ExcelUploadScreen extends StatefulWidget {
 }
 
 class _ExcelUploadScreenState extends State<ExcelUploadScreen> {
-  File? _file; // 선택한 파일
+  Uint8List? _fileBytes; // 선택된 파일의 바이트 데이터
+  String? _fileName; // 선택한 파일
   bool _isUploading = false; // 업로드 중 상태 표시
 
   Future<void> _pickFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['xls', 'xlsx'], // 엑셀 파일만 허용
+      withData: true, // 웹에서는 파일 경로 대신 바이트 데이터를 가져옴
     );
 
     if (result != null) {
       setState(() {
-        _file = File(result.files.single.path!);
+        _fileBytes = result.files.single.bytes;
+        _fileName = result.files.single.name; // 파일 이름 표시용
       });
     }
   }
 
   Future<void> _uploadFile() async {
-    if (_file == null) {
+    if (_fileBytes == null) {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text('파일을 선택하세요.')));
       return;
@@ -38,8 +42,9 @@ class _ExcelUploadScreenState extends State<ExcelUploadScreen> {
     });
 
     try {
-      String fileName = _file!.path.split('/').last;
-      await ExcelUploadService.uploadExcelFile(_file!, fileName); // 서비스 호출
+      // String fileName = _file!.path.split('/').last;
+      await ExcelUploadService.processExcelBytes(
+          _fileBytes!, _fileName!); // 서비스 호출
 
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text('파일 업로드 성공')));
@@ -49,7 +54,6 @@ class _ExcelUploadScreenState extends State<ExcelUploadScreen> {
     } finally {
       setState(() {
         _isUploading = false;
-        _file = null; // 업로드 후 파일 초기화
       });
     }
   }
@@ -68,9 +72,9 @@ class _ExcelUploadScreenState extends State<ExcelUploadScreen> {
               onPressed: _pickFile,
               child: Text('파일 선택'),
             ),
-            if (_file != null) ...[
+            if (_fileName != null) ...[
               SizedBox(height: 16),
-              Text('선택된 파일: ${_file!.path.split('/').last}'),
+              Text('선택된 파일: $_fileName'),
             ],
             SizedBox(height: 16),
             ElevatedButton(

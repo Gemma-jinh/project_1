@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'vehicle_assignment_screen.dart'; // 배정 화면
 import 'vehicle_registration_screen.dart';
 import 'vehicle_search_delegate.dart'; //검색기능
+import 'excel_upload_screen.dart';
 
 class VehicleListScreen extends StatelessWidget {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -14,12 +15,13 @@ class VehicleListScreen extends StatelessWidget {
         title: Text('차량 목록'),
         actions: [
           IconButton(
-            icon: Icon(Icons.search),
+            icon: Icon(Icons.file_upload),
             onPressed: () {
               // 검색 기능 추가
-              showSearch(
-                context: context,
-                delegate: VehicleSearchDelegate(),
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ExcelUploadScreen()), //엑셀 업로드 화면으로 이동
               );
             },
           ),
